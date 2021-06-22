@@ -1,9 +1,11 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Link } from 'react-router-native';
+import SiteContext from './Auth/context.js';
 
 export default function Landing() {
   return (
+    <SiteContext>
     <View>
       <Text style={styles.logo}>rebu</Text>
       <Link style={styles.link} to={"/about"}>
@@ -16,6 +18,7 @@ export default function Landing() {
         <Text>go to Sign up</Text>
       </Link>
     </View>
+  </SiteContext>
   )
 }
 
