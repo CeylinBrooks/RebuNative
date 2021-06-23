@@ -19,7 +19,9 @@ export default class Map extends Component {
       errorMsg: null,
       region: null,
       origin: props.origin,
+      originLatLng: null,
       destination: props.destination,
+      destinationLatLng: null,
       distance: null,
       duration: null,
     };
@@ -58,8 +60,8 @@ export default class Map extends Component {
           loadingEnabled={true}
           loadingBackgroundColor={'#00a88a'}
         >
-          <Marker coordinate={this.state.origin} />
-          <Marker coordinate={this.state.destination} />
+          <Marker coordinate={this.state.originLatLng} />
+          <Marker coordinate={this.state.destinationLatLng} />
           <MapViewDirections
             origin={this.state.origin}
             destination={this.state.destination}
@@ -67,9 +69,8 @@ export default class Map extends Component {
             strokeWidth={5}
             strokeColor="#00a88a"
             onReady={result => {
-              console.log(`Distance: ${result.distance} km`);
-              console.log(`Duration: ${result.duration} min.`);
-              this.setState({ distance: result.distance, duration: result.duration });
+              // console.log(result);
+              this.setState({ distance: result.distance, duration: result.duration, originLatLng: result.coordinates[0], destinationLatLng: result.coordinates[result.coordinates.length -1] });
               this.mapView.fitToCoordinates(result.coordinates, {
                 edgePadding: {
                   right: 20,
@@ -84,7 +85,7 @@ export default class Map extends Component {
         <Text style={styles.text}>Distance: {Math.round(this.state.distance)} km</Text>
         <Text style={styles.text}>Duration: {Math.round(this.state.duration)} min</Text>
         {/* pricing is arbitray for demo */}
-        <Text style={styles.text}>Estimated Cost: ${Math.round(this.state.duration * this.state.distance / 30)}</Text> 
+        <Text style={styles.text}>Estimated Cost: ${Math.round(this.state.duration * this.state.distance / 10)}</Text>
       </View>
     );
   }

@@ -7,13 +7,21 @@ function SiteProvider(props) {
   const [trip, setTrip] = useState(null);
   const [loading, setLoading] = useState(false);
 
+  // hardcoding test
+  const [origin, setOrigin] = useState('test origin');
+  const [destination, setDestination] = useState('test destination');
+
   const state = {
     user,
     setUser,
     trip,
     setTrip,
     loading,
-    setLoading
+    setLoading,
+    origin,
+    setOrigin,
+    destination,
+    setDestination,
   }
   
   return (

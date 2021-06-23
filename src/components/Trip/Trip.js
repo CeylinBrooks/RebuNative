@@ -1,16 +1,26 @@
-import { View, StyleSheet, Text} from 'react-native';
-import React from 'react';
+import React, { useContext } from 'react';
+import { View, StyleSheet, Text } from 'react-native';
+import { Link } from 'react-router-native';
+import { SiteContext } from '../Auth/context';
 
 import Map from './Map';
 
-// below are props for Map component: 
-// TODO: pull lat/long from trip object (in state? or DB) to feed map
-const origin = { latitude: 37.3318456, longitude: -122.0296002 }; // these will come from database trip item
-const destination = { latitude: 37.771707, longitude: -122.4053769 };
 
 export default function Trip() {
+  
+  // below are props for Map component: 
+  // TODO: pull lat/long from trip object (in state? or DB) to feed map
+  const context = useContext(SiteContext);
+
+  const origin = context.origin; // these will come from database trip item
+  const destination = context.destination;
+  console.log(context);
+
   return (
     <View style={styles.container}>
+      <Link to={"/"}>
+        <Text> {'>'} go Home</Text>
+      </Link>
       <Text style={styles.logo}>Curent Trip</Text>
       <Map origin={origin} destination={destination} />
     </View>
