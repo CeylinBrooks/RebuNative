@@ -14,18 +14,11 @@ import RiderPayment from './src/components/Trip/RiderPayment';
 import DashboardDriver from './src/components/Dashboard/Dashboard-driver'
 import Profile from './src/components/Dashboard/Profile'
 
-import Map from './src/components/Trip/Map';
-
-// below are props for Map component: 
-const origin = {latitude: 37.3318456, longitude: -122.0296002}; // these will come from database trip item
-const destination = {latitude: 37.771707, longitude: -122.4053769};
-
 export default function App() {
 
   return (
     <NativeRouter>
       <SafeAreaView style={styles.container}>
-        <Map origin={origin} destination={destination}/>
         <Switch>
           <Route exact path='/' component={Landing} />
           <Route path='/about' component={About} />

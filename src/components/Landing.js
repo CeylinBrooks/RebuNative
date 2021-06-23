@@ -23,6 +23,9 @@ export default function Landing() {
       <Link style={styles.link} to={"/dashboard/driver"}>
         <Text>go to Driver Dashboard</Text>
       </Link>
+      <Link style={styles.link} to={"/trip"}>
+        <Text>go to Trip</Text>
+      </Link>
     </View>
   </SiteContext>
   )
