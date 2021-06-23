@@ -25,7 +25,7 @@ export default function App() {
   return (
     <NativeRouter>
       <SafeAreaView style={styles.container}>
-        <Map origin={origin} destination={destination}/>
+        {/* <Map origin={origin} destination={destination}/> */}
         <Switch>
           <Route exact path='/' component={Landing} />
           <Route path='/about' component={About} />
