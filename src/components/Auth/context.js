@@ -6,6 +6,8 @@ function SiteProvider(props) {
   const [user, setUser] = useState();
   const [trip, setTrip] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [token, setToken] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const state = {
     user,
@@ -13,7 +15,11 @@ function SiteProvider(props) {
     trip,
     setTrip,
     loading,
-    setLoading
+    setLoading,
+    isAuthenticated,
+    setIsAuthenticated,
+    token,
+    setToken,
   }
   
   return (

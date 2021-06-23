@@ -1,16 +1,15 @@
 import React, { useState, useContext } from 'react';
 import { View, Text, TextInput, Button } from 'react-native';
+import Base64 from 'base-64';
 import { Link } from 'react-router-native';
 import { SiteContext } from './context.js';
-import useAjax from '../hooks/ajaxHook.js';
+import axios from 'axios';
 
 
 export default function SignIn() {
   const context = useContext(SiteContext);
-  const [get,add,remove,update] = useAjax();
+
   const [user, setUser] = useState(null);
-  // const [password, setPassword] = useState(null);
-  // // const [user, setUser] = useState(null);
 
   let handleUserName = (e, name) => {
     console.log("this is the event",name);
@@ -24,8 +23,23 @@ export default function SignIn() {
   }
   
   let handleSubmit = e => {
-    e.preventDefault();
-    get(user);
+    console.log(user);
+    // const token = context.token;
+    // const api = 'https://brsmith-auth-api.herokuapp.com/signin';
+    const api = 'http://localhost:3333/signin';
+    axios({
+      method: 'post',
+      url: api,
+      auth: {
+        user
+      },
+      headers: {  },
+    }).then(response => {
+      console.log('response data', response);
+      // if(response.status === 201) {
+      //   createTwoButtonAlert();
+      // }
+    })
   }
 
   return (
@@ -35,6 +49,7 @@ export default function SignIn() {
         textContentType='username'
         onChangeText={(e)=> handleUserName(e, 'username')}
         placeholder='username'
+        autoCapitalize = "none"
 
       />
 
@@ -42,7 +57,7 @@ export default function SignIn() {
         textContentType='password'
         onChangeText={(e)=> handlePassword(e, 'password')}
         placeholder='password'
-
+        autoCapitalize = "none"
       />
 
       <Button onPress={handleSubmit} title='Sign In'/>
