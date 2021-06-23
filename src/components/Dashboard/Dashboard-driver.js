@@ -1,9 +1,8 @@
 import React from 'react';
-import {ScrollView, Text, StyleSheet, View, TextInput, Button, FlatList, Image, TouchableOpacity} from 'react-native';
+import {Text, StyleSheet, View, TextInput, Button, FlatList, Image, TouchableOpacity} from 'react-native';
 import { Link } from 'react-router-native';
-import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 
-export default function Dashboard() {
+export default function DashboardDriver() {
 
   const DATA = [
     {
@@ -35,46 +34,20 @@ export default function Dashboard() {
           style={styles.exitImg}
           source={require('./exit.png')} />
         </Link>
-        <Link to={"/profile"}>
-          <Image 
-          style={styles.exitImg}
-          source={require('./profile.png')} />
-        </Link>
-        {/* <View style={styles.inputContainer}> */}
-        <Text style={styles.formLabel}>Rider Dashboard</Text>
-        <GooglePlacesAutocomplete
-        placeholder="Pick up location"
-        query={{
-          key: 'AIzaSyBtLbow5RiE2qmYmc1iqRcQnKnqfLZalKo',
-          language: 'en',
-        }}
-        onPress={(data, details = null) => console.log(data)}
-        onFail={(error) => console.error(error)}
-        // currentLocation={true}
-      />
-        <GooglePlacesAutocomplete
-        placeholder="Where are you going?"
-        query={{
-          key: 'AIzaSyBtLbow5RiE2qmYmc1iqRcQnKnqfLZalKo',
-          language: 'en',
-        }}
-        onPress={(data, details = null) => console.log(data)}
-        onFail={(error) => console.error(error)}
-      />
+        <View style={styles.inputContainer}>
+        <Text style={styles.formLabel}>Driver Dashboard</Text>
         <TouchableOpacity>
             <Text style = {styles.button}>
               Schedule pickup
             </Text>
          </TouchableOpacity>
-         <ScrollView>
-           <Text style = {styles.text}>Your previous trips:</Text>
-           <Text
+        </View>
+        <Text style = {styles.text}>Your past trips:</Text>
+          <FlatList
             data={DATA}
             renderItem={renderItem}
             keyExtractor={item => item.id}
-            ></Text>
-
-         </ScrollView>
+            />
       </View>
   
     )
@@ -98,12 +71,6 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: 'bold'
   },
-  inputStyle: {
-    width: 500,
-    height: 50,
-    color: '#5d5d5d',
-    fontSize: 16,
-  },
   button: {
     borderWidth: 1,
     padding: 15,
@@ -114,8 +81,8 @@ const styles = StyleSheet.create({
     marginBottom: 20
  },
   exitImg: {
-    width: 35,
-    height: 35,
+    width: 40,
+    height: 40,
     alignSelf: 'flex-end',
     marginTop: 20
   },
@@ -123,4 +90,5 @@ const styles = StyleSheet.create({
     fontSize: 25,
     marginBottom: 15
   }
+  
 });
