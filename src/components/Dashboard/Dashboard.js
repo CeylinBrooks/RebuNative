@@ -1,9 +1,13 @@
-import React from 'react';
-import {ScrollView, Text, StyleSheet, View, TextInput, Button, FlatList, Image, TouchableOpacity} from 'react-native';
+import React, { useContext, useState } from 'react';
+import { ScrollView, Text, StyleSheet, View, TextInput, Button, FlatList, Image, TouchableOpacity } from 'react-native';
 import { Link } from 'react-router-native';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import { SiteContext } from '../Auth/context';
 
 export default function Dashboard() {
+
+  // Set global context with form data TODO: user sessions
+  const context = useContext(SiteContext);
 
   const DATA = [
     {
@@ -21,7 +25,7 @@ export default function Dashboard() {
   ];
 
   const Item = ({ title }) => (
-      <Text>{title}</Text>
+    <Text>{title}</Text>
   );
 
   const renderItem = ({ item }) => (
@@ -29,55 +33,57 @@ export default function Dashboard() {
   );
 
   return (
-    <View >
-        <Link to={"/"}>
-          <Image 
+    <View style={styles.wrapContainer}>
+      <Link to={"/"}>
+        <Image
           style={styles.exitImg}
           source={require('./exit.png')} />
-        </Link>
-        <Link to={"/profile"}>
-          <Image 
+      </Link>
+      <Link to={"/profile"}>
+        <Image
           style={styles.exitImg}
           source={require('./profile.png')} />
-        </Link>
-        {/* <View style={styles.inputContainer}> */}
-        <Text style={styles.formLabel}>Rider Dashboard</Text>
-        <GooglePlacesAutocomplete
+      </Link>
+      {/* <View style={styles.inputContainer}> */}
+      <Text style={styles.formLabel}>Rider Dashboard</Text>
+      <GooglePlacesAutocomplete
         placeholder="Pick up location"
         query={{
           key: 'AIzaSyBtLbow5RiE2qmYmc1iqRcQnKnqfLZalKo',
           language: 'en',
         }}
-        onPress={(data, details = null) => console.log(data)}
+        onPress={(data, details = null) => console.log(data.description)}
+        onPress={(data, details = null) => context.setOrigin(data.description)}
         onFail={(error) => console.error(error)}
-        // currentLocation={true}
+      // currentLocation={true}
       />
-        <GooglePlacesAutocomplete
+      <GooglePlacesAutocomplete
         placeholder="Where are you going?"
         query={{
           key: 'AIzaSyBtLbow5RiE2qmYmc1iqRcQnKnqfLZalKo',
           language: 'en',
         }}
-        onPress={(data, details = null) => console.log(data)}
+        onPress={(data, details = null) => console.log(data.description)}
+        onPress={(data, details = null) => context.setDestination(data.description)}
         onFail={(error) => console.error(error)}
       />
-        <TouchableOpacity>
-            <Text style = {styles.button}>
-              Schedule pickup
-            </Text>
-         </TouchableOpacity>
-         <ScrollView>
-           <Text style = {styles.text}>Your previous trips:</Text>
-           <Text
-            data={DATA}
-            renderItem={renderItem}
-            keyExtractor={item => item.id}
-            ></Text>
+      <TouchableOpacity>
+        <Text style={styles.button}>
+          Schedule pickup
+        </Text>
+      </TouchableOpacity>
+      <ScrollView>
+        <Text style={styles.text}>Your previous trips:</Text>
+        <Text
+          data={DATA}
+          renderItem={renderItem}
+          keyExtractor={item => item.id}
+        ></Text>
 
-         </ScrollView>
-      </View>
-  
-    )
+      </ScrollView>
+    </View>
+
+  )
 }
 
 
@@ -99,7 +105,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   inputStyle: {
-    width: 500,
+    width: "90%",
     height: 50,
     color: '#5d5d5d',
     fontSize: 16,
@@ -112,7 +118,7 @@ const styles = StyleSheet.create({
     color: "#00a88a",
     borderColor: "#00a88a",
     marginBottom: 20
- },
+  },
   exitImg: {
     width: 35,
     height: 35,
