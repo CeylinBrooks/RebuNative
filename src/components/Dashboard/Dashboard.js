@@ -68,9 +68,13 @@ export default function Dashboard() {
         onFail={(error) => console.error(error)}
       />
       <TouchableOpacity>
-        <Text style={styles.button}>
-          Schedule pickup
-        </Text>
+        <Link to={"/trip"} style={styles.button}
+        // TODO: this button should update the database with new trip object
+        >
+          <Text>
+            Schedule pickup
+          </Text>
+        </Link>
       </TouchableOpacity>
       <ScrollView>
         <Text style={styles.text}>Your previous trips:</Text>

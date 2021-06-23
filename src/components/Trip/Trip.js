@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, Button } from 'react-native';
 import { Link } from 'react-router-native';
 import { SiteContext } from '../Auth/context';
 
@@ -22,6 +22,11 @@ export default function Trip() {
         <Text> {'>'} go Home</Text>
       </Link>
       <Text style={styles.logo}>Curent Trip</Text>
+      {/* Display pickup button only for Drivers */}
+      {context.role === 'driver' ?
+       <Button title="Pick Up Passenger" onPress={null} /> 
+       : 
+       null}
       <Map origin={origin} destination={destination} />
     </View>
   )

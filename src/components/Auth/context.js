@@ -4,6 +4,9 @@ export const SiteContext = React.createContext();
 
 function SiteProvider(props) {
   const [user, setUser] = useState();
+  // =!==!==!==!==!==!==!==!==!= TODO: dev dummy role:
+  // const [role, setRole] = useState('driver');
+  const [role, setRole] = useState(null);
   const [trip, setTrip] = useState(null);
   const [loading, setLoading] = useState(false);
   const [token, setToken] = useState(null);
@@ -16,6 +19,8 @@ function SiteProvider(props) {
   const state = {
     user,
     setUser,
+    role,
+    setRole,
     trip,
     setTrip,
     loading,
