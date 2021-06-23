@@ -82,6 +82,8 @@ export default class Map extends Component {
             }}
           />
         </MapView>
+        <Text style={styles.text}>Start: {this.state.origin} </Text>
+        <Text style={styles.text}>End: {this.state.destination} </Text>
         <Text style={styles.text}>Distance: {Math.round(this.state.distance)} km</Text>
         <Text style={styles.text}>Duration: {Math.round(this.state.duration)} min</Text>
         {/* pricing is arbitray for demo */}
