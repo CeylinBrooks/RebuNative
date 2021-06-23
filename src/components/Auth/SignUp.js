@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
 import {Picker} from '@react-native-picker/picker';
-import { Link } from 'react-router-native';
+import { Link, Redirect } from 'react-router-native';
 import axios from 'axios';
 import { SiteContext } from './context.js';
 
@@ -11,6 +11,8 @@ export default function SignIn() {
   const context = useContext(SiteContext);
   const [user, setUser] = useState(null);
   const [role, setRole] = useState(null);
+  const [success, setSuccess] = useState(false);
+
 
 
   useEffect(() => {
@@ -36,7 +38,6 @@ export default function SignIn() {
   
 
   const handleSubmit= () => {
-    console.log('inside ajax', user);
     // const api = 'https://brsmith-auth-api.herokuapp.com/signup';
     const api = 'http://localhost:3333/signup';
     axios({
@@ -50,7 +51,9 @@ export default function SignIn() {
       console.log('response data', response);
       context.setToken(response.data.token);
       if(response.status === 201) {
+        setSuccess(true);
         createTwoButtonAlert();
+
       }
     })
   }
@@ -65,7 +68,7 @@ export default function SignIn() {
           onPress: () => console.log("Cancel Pressed"),
           style: "cancel"
         },
-        { text: "OK", onPress: () => console.log("OK Pressed") }
+        { text: "OK", onPress: () => to= "/signin" }
       ]
     );
 
@@ -105,6 +108,15 @@ export default function SignIn() {
       <Link style={styles.link} to={"/signin"}>
         <Text style={styles.text}>Go To Sign In</Text>
       </Link>
+      {success ? 
+      <Redirect
+            to={{
+              pathname: "/signin",
+              // state: { from: props.location }
+            }}
+          />
+      : null}
+
     </View>
 
   )
