@@ -1,7 +1,15 @@
 import React from 'react';
+import { encode, decode } from 'base-64';
 import { View, Text, StyleSheet } from 'react-native';
 import { Link } from 'react-router-native';
 import SiteContext from './Auth/context.js';
+
+if(!global.btoa) {
+  global.btoa = encode
+}
+if(!global.atob) {
+  global.atob = decode
+}
 
 export default function Landing() {
   return (

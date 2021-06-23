@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const routes = (action) => {
-  const api = 'https://rebu-react-native.herokuapp.com/rebu/v2';
+  const api = 'https://brsmith-auth-api.herokuapp.com/api/v2/users';
 
   const get = (callback) => {
     axios.get(api).then(response => {
@@ -11,6 +11,7 @@ const routes = (action) => {
   }
 
   const add = (data, callback) => {
+    console.log('inside ajax', data);
     // console.log(`inside addItem ${data.text}`, data.assignee, data.completed, data.difficulty);
     axios({
       method: 'post',
@@ -20,8 +21,9 @@ const routes = (action) => {
       headers: { 'Content-Type': 'application/json' },
       data: data,
     }).then(response => {
-      const newItem = response.data;
-      callback(newItem);
+      console.log('response data', response);
+      const newUser = response.data;
+      callback(newUser);
     }).catch(err => console.log(err))
   }
 

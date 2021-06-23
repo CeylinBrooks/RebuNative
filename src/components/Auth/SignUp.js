@@ -1,16 +1,17 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
 import {Picker} from '@react-native-picker/picker';
 import { Link } from 'react-router-native';
-// import { SiteContext } from './context.js';
-import useAjax from '../hooks/ajaxHook.js';
+import axios from 'axios';
+import { SiteContext } from './context.js';
+
 
 
 export default function SignIn() {
-  // const context = useContext(SiteContext);
-  const [get,add,remove,update] = useAjax();
+  const context = useContext(SiteContext);
   const [user, setUser] = useState(null);
   const [role, setRole] = useState(null);
+
 
   useEffect(() => {
     setUser({role: "rider"});
@@ -33,18 +34,43 @@ export default function SignIn() {
     console.log(user);
   }
   
-  let handleSubmit = e => {
-    e.preventDefault();
-    // if(e) {
-    //   setUser({...user, role })
-    // }
-    console.log(user);
-    // add(user);
+
+  const handleSubmit= () => {
+    console.log('inside ajax', user);
+    // const api = 'https://brsmith-auth-api.herokuapp.com/signup';
+    const api = 'http://localhost:3333/signup';
+    axios({
+      method: 'post',
+      url: api,
+      mode: 'cors',
+      cache: 'no-cache',
+      headers: { 'Content-Type': 'application/json' },
+      data: user,
+    }).then(response => {
+      console.log('response data', response);
+      context.setToken(response.data.token);
+      if(response.status === 201) {
+        createTwoButtonAlert();
+      }
+    })
   }
 
+  const createTwoButtonAlert = () =>
+    Alert.alert(
+      "Success!",
+      "Your user has been created. Please sign in to access the site",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        { text: "OK", onPress: () => console.log("OK Pressed") }
+      ]
+    );
+
   return (
-    // this will ultimately redirect to /dashboard with user creds as props(?)
-    <View>
+    <View style={styles.container}>
       <Picker
         style={styles.picker}
         selectedValue={role}
@@ -86,9 +112,6 @@ export default function SignIn() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   picker: {
     height: 50,
