@@ -17,6 +17,12 @@ export default function Landing() {
       <Link style={styles.link} to={"/signup"}>
         <Text>go to Sign up</Text>
       </Link>
+      <Link style={styles.link} to={"/dashboard"}>
+        <Text>go to Dashboard</Text>
+      </Link>
+      <Link style={styles.link} to={"/dashboard/driver"}>
+        <Text>go to Driver Dashboard</Text>
+      </Link>
     </View>
   </SiteContext>
   )

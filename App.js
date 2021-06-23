@@ -11,6 +11,8 @@ import Dashboard from './src/components/Dashboard/Dashboard';
 import TripHistory from './src/components/Trip/TripHistory';
 import Trip from './src/components/Trip/Trip';
 import RiderPayment from './src/components/Trip/RiderPayment';
+import DashboardDriver from './src/components/Dashboard/Dashboard-driver'
+import Profile from './src/components/Dashboard/Profile'
 
 import Map from './src/components/Trip/Map';
 
@@ -30,6 +32,8 @@ export default function App() {
           <Route path='/signin' component={SignIn} />
           <Route path='/signup' component={SignUp} />
           <Route exact path='/dashboard' component={Dashboard} />
+          <Route exact path='/profile' component={Profile} />
+          <Route exact path='/dashboard/driver' component={DashboardDriver} />
           <Route path='/dashboard/history' component={TripHistory} />
           <Route path='/trip' component={Trip} />
           <Route path='/payment' component={RiderPayment} />
