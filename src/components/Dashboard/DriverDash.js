@@ -2,7 +2,9 @@ import React from 'react';
 import {Text, StyleSheet, View, TextInput, Button, FlatList, Image, TouchableOpacity} from 'react-native';
 import { Link } from 'react-router-native';
 
-export default function DashboardDriver() {
+export default function DriverDash() {
+
+  const queue = [];
 
   const DATA = [
     {
