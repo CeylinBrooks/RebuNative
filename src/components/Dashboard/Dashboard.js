@@ -3,6 +3,7 @@ import { ScrollView, Text, StyleSheet, View, TextInput, Button, FlatList, Image,
 import { Link } from 'react-router-native';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { SiteContext } from '../Auth/context';
+import axios from 'axios';
 
 export default function Dashboard() {
 
@@ -31,6 +32,27 @@ export default function Dashboard() {
   const renderItem = ({ item }) => (
     <Item title={item.title} />
   );
+
+  const addTrip = () => {
+    console.log("user id", context.user._id);
+
+    const api = 'http://localhost:3333/trips';
+    axios({
+      method: 'post',
+      url: api,
+      data: {
+      rider_id: context.user._id,
+      start_loc: context.origin,
+      end_loc: context.destination,
+      init_time: new Date,
+    },
+      headers: { 'Content-Type': 'application/json' },
+    }).then(response => {
+      console.log('this is the response', response.data);
+      // context.setIsAuthenticated(true);
+      // context.setToken(response.data.token);
+    })
+  }
 
   return (
     <View style={styles.wrapContainer}>
@@ -68,7 +90,7 @@ export default function Dashboard() {
         onFail={(error) => console.error(error)}
       />
       <TouchableOpacity>
-        <Link to={"/trip"} style={styles.button}
+        <Link to={"/trip"} style={styles.button} onPress={addTrip}
         // TODO: this button should update the database with new trip object
         >
           <Text>

@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { encode, decode } from "base-64";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet, Alert } from "react-native";
 import { Link } from "react-router-native";
 import AuthContext from "./Auth/context.js";
 import { SiteContext } from "./Auth/context.js";
@@ -14,6 +14,18 @@ if (!global.atob) {
 
 export default function Landing() {
   const context = useContext(SiteContext);
+  
+  const signOut = () => {
+    context.setUser(null);
+    context.setRole(null);
+    context.setTrip(null);
+    context.setOrigin(null);
+    context.setDestination(null);
+    context.setIsAuthenticated(false);
+    context.setToken(null);
+  
+  }
+
   return (
     <AuthContext>
       <View>
@@ -40,6 +52,9 @@ export default function Landing() {
             </Link>
             <Link style={styles.link} to={"/trip"}>
               <Text>go to Trip</Text>
+            </Link>
+            <Link style={styles.link} onPress={signOut}>
+              <Text>Sign Out</Text>
             </Link>
           </View>
         {/* )} */}

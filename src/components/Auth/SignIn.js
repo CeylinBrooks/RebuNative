@@ -1,31 +1,25 @@
 import React, { useState, useContext } from 'react';
 import { View, Text, TextInput, Button } from 'react-native';
-// import Base64 from 'base-64';
 import { Redirect } from 'react-router-native';
 import { SiteContext } from './context.js';
 import axios from 'axios';
 
-
 export default function SignIn() {
   const context = useContext(SiteContext);
-  const [user, setUser] = useState(null);
+  const [userInput, setUserInput] = useState(null);
 
   let handleUserName = (e, name) => {
-    console.log("this is the event",name);
-    setUser({username: e});
+    setUserInput({username: e});
   }
 
   let handlePassword = (e, name) => {
-    console.log("this is the event",name);
-    setUser({...user, password:e});
-    console.log(user);
+    setUserInput({...userInput, password:e});
   }
   
   let handleSubmit = e => {
-    console.log(user);
-    let username = user.username;
-    let password = user.password;
-    // const token = context.token;
+    let username = userInput.username;
+    let password = userInput.password;
+
     // const api = 'https://brsmith-auth-api.herokuapp.com/signin';
     const api = 'http://localhost:3333/signin';
     axios({
@@ -36,27 +30,13 @@ export default function SignIn() {
       },
       headers: {  },
     }).then(response => {
-      console.log('this is the response', response.data.token);
       context.setIsAuthenticated(true);
+      context.setUser(response.data.user);
       context.setToken(response.data.token);
     })
   }
-  const createTwoButtonAlert = () =>
-  Alert.alert(
-    "Success!",
-    "Your have been logged in",
-    [
-      {
-        text: "Cancel",
-        onPress: () => console.log("Cancel Pressed"),
-        style: "cancel"
-      },
-      { text: "OK", onPress: () => to= "/signin" }
-    ]
-  );
 
   return (
-    // this will ultimately redirect to /dashboard with user creds as props(?)
     <View>
 
       <TextInput
@@ -79,16 +59,10 @@ export default function SignIn() {
       <Redirect
             to={{
               pathname: "/dashboard",
-              // state: { from: props.location }
+
             }}
           />
       : null}
-
-
-      {/* <Link to={"/"}>
-        <Text> {'>'} go Home</Text>
-      </Link>
-      <Text>this is the SignIn component</Text> */}
     </View>
 
   )
