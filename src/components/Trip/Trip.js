@@ -6,7 +6,6 @@ import axios from 'axios';
 import Map from './Map';
 import Modal from './modal.js';
 
-
 export default function Trip() {
   // TODO: pull lat/long from trip object (in state? or DB) to feed map
   const context = useContext(SiteContext);
