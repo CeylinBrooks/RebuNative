@@ -28,11 +28,12 @@ export default function Trip() {
       headers: { 'Content-Type': 'application/json' },
     }).then(response => {
       console.log('this is the response', response.data);
-  },5000)
+    })
+  }, 5000)
 
   return (
     <View style={styles.container}>
-      {context.trip.accept_time ? 
+      {/* {context.trip.accept_time ? 
       <Modal 
       message="Driver is on the way"/>
       : null }
@@ -40,7 +41,7 @@ export default function Trip() {
       <Modal 
       message="Driver has arrived"/>
       : null }
-      {context.trip.dropoff_time ? 
+      {context.trip.dropoff_time ?  */}
       <Link to={"/dashboard"}>
         <Modal 
         message="You trip has ended. Please exit the vehicle."/>

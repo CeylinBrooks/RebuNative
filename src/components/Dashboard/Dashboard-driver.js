@@ -3,6 +3,20 @@ import {Text, StyleSheet, View, TextInput, Button, FlatList, Image, TouchableOpa
 import { Link } from 'react-router-native';
 
 export default function DashboardDriver() {
+  const handleGetTrip = () => {
+    const api = 'http://localhost:3333/api/v1/trips';
+    axios({
+      method: 'get',
+      url: api,
+      data: {
+      // TODO: set accept time and pull trip to context
+    },
+      headers: { 'Content-Type': 'application/json' },
+    }).then(response => {
+      // Send trip to context and redirect to trip page
+      console.log('this is the response', response.data);
+    })
+  }
 
   const DATA = [
     {
@@ -36,7 +50,7 @@ export default function DashboardDriver() {
         </Link>
         <View style={styles.inputContainer}>
         <Text style={styles.formLabel}>Driver Dashboard</Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={handleGetTrip}>
             <Text style = {styles.button}>
               Schedule pickup
             </Text>
