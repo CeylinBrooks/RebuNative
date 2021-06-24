@@ -47,7 +47,9 @@ export default function SignIn() {
       data: context.user,
     }).then(response => {
       context.setToken(response.data.token);
-      if (response.status === 201) {
+
+      if (response.status === 200) {
+        console.log('response.data.user!!!!!!!', response.data.user);
         context.setUser(response.data.user);
         setSuccess(true);
         createTwoButtonAlert();

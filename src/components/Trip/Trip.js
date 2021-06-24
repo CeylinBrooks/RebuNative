@@ -6,7 +6,6 @@ import axios from 'axios';
 import Map from './Map';
 import Modal from './modal.js';
 
-
 export default function Trip() {
 
   const context = useContext(SiteContext);
