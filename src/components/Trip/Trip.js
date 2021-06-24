@@ -2,12 +2,12 @@ import React, { useContext } from 'react';
 import { View, StyleSheet, Text, Button } from 'react-native';
 import { Link } from 'react-router-native';
 import { SiteContext } from '../Auth/context';
-
+import axios from 'axios';
 import Map from './Map';
+import Modal from './modal.js';
 
 
 export default function Trip() {
-  
   // below are props for Map component: 
   // TODO: pull lat/long from trip object (in state? or DB) to feed map
   const context = useContext(SiteContext);
@@ -16,12 +16,40 @@ export default function Trip() {
   const destination = context.destination;
   console.log(context);
 
+  // query the db for updates to the trip data
+  setTimeout(() => {
+    const api = 'http://localhost:3333/trips';
+    axios({
+      method: 'get',
+      url: api,
+      data: {
+      // TODO: do we need to send the trip id as data or as a param
+    },
+      headers: { 'Content-Type': 'application/json' },
+    }).then(response => {
+      console.log('this is the response', response.data);
+  },5000)
+
   return (
     <View style={styles.container}>
+      {context.trip.accept_time ? 
+      <Modal 
+      message="Driver is on the way"/>
+      : null }
+      {context.trip.pickup_time ? 
+      <Modal 
+      message="Driver has arrived"/>
+      : null }
+      {context.trip.dropoff_time ? 
+      <Link to={"/dashboard"}>
+        <Modal 
+        message="You trip has ended. Please exit the vehicle."/>
+      </Link>
+      : null }
       <Link to={"/"}>
         <Text> {'>'} go Home</Text>
       </Link>
-      <Text style={styles.logo}>Curent Trip</Text>
+      <Text style={styles.logo}>Current Trip</Text>
       {/* Display pickup button only for Drivers */}
       {context.role === 'driver' ?
        <Button title="Pick Up Passenger" onPress={null} /> 
