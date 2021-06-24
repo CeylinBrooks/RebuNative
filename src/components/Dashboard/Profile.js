@@ -30,13 +30,15 @@ export default function Profile() {
           placeholder="Phone Number"
           style={styles.inputStyle}
         />
-        <TouchableOpacity>
-            <Text style = {styles.button}>
+        <TouchableOpacity style={styles.buttonStyle}>
+            <Text style={styles.buttonText}>
               Save Changes
             </Text>
          </TouchableOpacity>
-        {/* <Button title="Save Changes" color="black" /> */}
       </View>
+      <Link to={"/payment"} style={styles.buttonStyle}>
+          <Text style={styles.buttonText}>Add a payment</Text>
+      </Link>
     </ScrollView>
 
   )
@@ -75,14 +77,20 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 20,
   },
-  button: {
-    borderWidth: 2,
-    padding: 15,
-    backgroundColor: 'white',
-    alignSelf: 'center',
-    color: "#00a88a",
-    borderColor: "#00a88a",
-    marginTop: 20,
-    // borderRadius: 15
- }
+  buttonStyle: {
+    marginTop: 30,
+    marginLeft : "20%",
+    height: 45,
+    width : "50%",
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 30,
+    backgroundColor: "#FFFFFF",
+    color: "#00a88a"
+},
+buttonText:{
+  color: '#00a88a',
+  fontWeight: "600"
+},
 });

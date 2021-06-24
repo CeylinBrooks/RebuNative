@@ -20,8 +20,8 @@ export default function SignIn() {
     let username = userInput.username;
     let password = userInput.password;
 
-    // const api = 'https://brsmith-auth-api.herokuapp.com/signin';
-    const api = 'http://localhost:3333/signin';
+    const api = 'https://brsmith-auth-api.herokuapp.com/signin';
+    // const api = 'http://localhost:3333/signin';
     axios({
       method: 'post',
       url: api,

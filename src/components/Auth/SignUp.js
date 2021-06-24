@@ -34,8 +34,8 @@ export default function SignIn() {
 
 
   const handleSubmit = () => {
-    // const api = 'https://brsmith-auth-api.herokuapp.com/signup';
-    const api = 'http://localhost:3333/signup';
+    const api = 'https://brsmith-auth-api.herokuapp.com/signup';
+    // const api = 'http://localhost:3333/signup';
     axios({
       method: 'post',
       url: api,
