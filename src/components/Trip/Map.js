@@ -6,7 +6,7 @@ import MapViewDirections from 'react-native-maps-directions';
 
 
 // Directions vars
-const GOOGLE_MAPS_APIKEY = 'AIzaSyBtLbow5RiE2qmYmc1iqRcQnKnqfLZalKo'; // this needs to go in .env
+const GOOGLE_MAPS_APIKEY = 'AIzaSyBtLbow5RiE2qmYmc1iqRcQnKnqfLZalKo';
 
 // This is a class component so we can use ref= to update the MapView from inside the MapViewDirections component... would prefer to figure out how to implement as functional component.
 export default class Map extends Component {

@@ -1,59 +1,63 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Alert } from 'react-native';
-import {Picker} from '@react-native-picker/picker';
+import React, { useState, useContext } from 'react';
+import { View, Text, TextInput, Button, StyleSheet, Alert, Switch } from 'react-native';
 import { Link, Redirect } from 'react-router-native';
 import axios from 'axios';
 import { SiteContext } from './context.js';
 
 
-
 export default function SignIn() {
   const context = useContext(SiteContext);
-  const [user, setUser] = useState(null);
-  const [role, setRole] = useState(null);
+
+  // const [user, setUser] = useState({username: null, password: null, role: 'rider'});
+  // const [role, setRole] = useState('rider');
+  const [isEnabled, setIsEnabled] = useState(false);
   const [success, setSuccess] = useState(false);
 
 
 
-  useEffect(() => {
-    setUser({role: "rider"});
-    console.log(user);
-  }, [])
   let handleUserName = (e, name) => {
-    console.log("this is the event",name);
-    setUser({...user, username: e});
+    console.log("this is the event", name);
+    context.setUser({ ...context.user, username: e });
+    console.log(context.user);
   }
 
   let handlePassword = (e, name) => {
-    console.log("this is the event",name);
-    setUser({...user, password: e});
-    console.log(user);
+    console.log("this is the event", name);
+    context.setUser({ ...context.user, password: e });
+    console.log(context.user);
   }
 
   let handleRole = (e, name) => {
-    console.log("this is the event",name);
-    setRole({...user, role: e});
-    console.log(user);
+    console.log("this is the event", name);
+    context.setUser({ ...context.user, role: e });
+    console.log(context.user);
   }
-  
 
-  const handleSubmit= () => {
+
+
+  const handleSubmit = async () => {
     // const api = 'https://brsmith-auth-api.herokuapp.com/signup';
     const api = 'http://localhost:3333/signup';
-    axios({
+    await axios({
       method: 'post',
       url: api,
       mode: 'cors',
       cache: 'no-cache',
       headers: { 'Content-Type': 'application/json' },
-      data: user,
+      data: context.user,
     }).then(response => {
-      console.log('response data', response);
       context.setToken(response.data.token);
-      if(response.status === 201) {
+      if (response.status === 201) {
+        console.log('response.data.user!!!!!!!', response.data.user);
+        context.setUser(response.data.user);
         setSuccess(true);
         createTwoButtonAlert();
-
+      }
+      if (response.status === 500) {
+        Alert.alert(
+          "Error",
+          "Please choose another username.", [{text: "OK"}]
+        )
       }
     })
   }
@@ -63,59 +67,68 @@ export default function SignIn() {
       "Success!",
       "Your user has been created. Please sign in to access the site",
       [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel"
-        },
-        { text: "OK", onPress: () => to= "/signin" }
+        // {
+        //   text: "Cancel",
+        //   onPress: () => console.log("Cancel Pressed"),
+        //   style: "cancel"
+        // },
+        { text: "OK", onPress: () => console.log('OK') }
       ]
     );
 
+  const toggleSwitch = () => {
+    if (context.user.role === 'driver') {
+      // setRole('rider');
+      handleRole('rider', 'role');
+      setIsEnabled(false);
+    } else {
+      // setRole('driver');
+      handleRole('driver', 'role');
+      setIsEnabled(true);
+    };
+  }
+
   return (
     <View style={styles.container}>
-      <Picker
-        style={styles.picker}
-        selectedValue={role}
-        onValueChange={(itemValue, itemIndex) =>
-        setRole(itemValue)
-        }>
-        <Picker.Item label="Select Role" value="rider" />
-        <Picker.Item label="Rider" value="rider" />
-        <Picker.Item label="Driver" value="driver" />
-      </Picker>
-
+      <View style={styles.roleSwitch}>
+        <Text>Rider</Text>
+        <Switch
+          value={isEnabled}
+          onValueChange={toggleSwitch}
+        />
+        <Text>Driver</Text>
+      </View>
       <TextInput
-      style={styles.input}
+        style={styles.input}
         textContentType='username'
-        onChangeText={(e)=> handleUserName(e, 'username')}
+        onChangeText={(e) => handleUserName(e, 'username')}
         placeholder='Username'
-        autoCapitalize = "none"
+        autoCapitalize="none"
       />
 
       <TextInput
-      style={styles.input}
+        style={styles.input}
         textContentType='password'
-        onChangeText={(e)=> handlePassword(e, 'password')}
+        onChangeText={(e) => handlePassword(e, 'password')}
         placeholder='Password'
-        autoCapitalize = "none"
+        autoCapitalize="none"
       />
 
-      <Button 
-      style={styles.button}
-      onPress={handleSubmit} title='Sign Up'/>
+      <Button
+        style={styles.button}
+        onPress={handleSubmit} title='Sign Up' />
       <Text style={styles.text}>Already Signed up?</Text>
       <Link style={styles.link} to={"/signin"}>
         <Text style={styles.text}>Go To Sign In</Text>
       </Link>
-      {success ? 
-      <Redirect
-            to={{
-              pathname: "/signin",
-              // state: { from: props.location }
-            }}
-          />
-      : null}
+      {success ?
+        <Redirect
+          to={{
+            pathname: "/signin",
+            // state: { from: props.location }
+          }}
+        />
+        : null}
 
     </View>
 
@@ -124,6 +137,10 @@ export default function SignIn() {
 
 const styles = StyleSheet.create({
   container: {
+  },
+  roleSwitch: {
+    justifyContent: "center",
+    flexDirection: "row"
   },
   picker: {
     height: 50,

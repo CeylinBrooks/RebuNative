@@ -3,9 +3,7 @@ import React, { useState } from 'react';
 export const SiteContext = React.createContext();
 
 function SiteProvider(props) {
-  const [user, setUser] = useState();
-  // =!==!==!==!==!==!==!==!==!= TODO: dev dummy role:
-  // const [role, setRole] = useState('driver');
+  const [user, setUser] = useState({username: null, password: null, role: 'rider'});
   const [role, setRole] = useState(null);
   const [trip, setTrip] = useState(null);
   const [loading, setLoading] = useState(false);
