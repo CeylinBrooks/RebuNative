@@ -33,11 +33,11 @@ export default function RiderDash(props) {
     <Item title={item.title} />
   );
 
-  const addTrip = () => {
+  const addTrip = async () => {
     console.log("user id", context.user._id);
 
     const api = 'http://localhost:3333/api/v1/trips';
-    axios({
+    await axios({
       method: 'post',
       url: api,
       data: {
@@ -53,11 +53,11 @@ export default function RiderDash(props) {
       headers: { 'Content-Type': 'application/json' },
     }).then(response => {
       console.log('this is the response', response.data);
-      context.setTrip(response.data._id);
+      context.setTrip(response.data);
 
       // context.setIsAuthenticated(true);
       // context.setToken(response.data.token);
-    }).catch(e => {console.error(e)});
+    }).catch(e => { console.error(e) });
   }
 
   return (
@@ -95,9 +95,9 @@ export default function RiderDash(props) {
         onPress={(data, details = null) => context.setDestination(data.description)}
         onFail={(error) => console.error(error)}
       />
-      <TouchableOpacity >
-        <Button title="Schedule Pickup" style={styles.button} onPress={addTrip} />
-      </TouchableOpacity>
+
+      <Button title="Schedule Pickup" style={styles.button} onPress={addTrip} />
+
       <ScrollView>
         <Text style={styles.text}>Your previous trips:</Text>
         <Text
@@ -108,11 +108,11 @@ export default function RiderDash(props) {
 
       </ScrollView>
       {context.trip !== null ? <Redirect
-          to={{
-            pathname: "/trip",
-            // state: { from: props.location }
-          }}
-        /> : null }
+        to={{
+          pathname: "/trip",
+          // state: { from: props.location }
+        }}
+      /> : null}
     </View>
 
   )
