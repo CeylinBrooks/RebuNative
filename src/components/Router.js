@@ -7,11 +7,12 @@ import Landing from './Landing';
 import About from './About/About';
 import SignIn from './Auth/SignIn';
 import SignUp from './Auth/SignUp';
+import RiderDash from './Dashboard/RiderDash';
 import Dashboard from './Dashboard/Dashboard';
 import TripHistory from './Trip/TripHistory';
 import Trip from './Trip/Trip';
 import RiderPayment from './Trip/RiderPayment';
-import DashboardDriver from './Dashboard/Dashboard-driver'
+import DashboardDriver from './Dashboard/DriverDash'
 import Profile from './Dashboard/Profile'
 
 export default function Router() {

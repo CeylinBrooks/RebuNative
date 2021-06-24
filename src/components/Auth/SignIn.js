@@ -33,7 +33,7 @@ export default function SignIn() {
       context.setIsAuthenticated(true);
       context.setUser(response.data.user);
       context.setToken(response.data.token);
-    })
+    }).catch((e) => console.error(e));
   }
 
   return (
