@@ -7,7 +7,8 @@ import { SiteContext } from './context.js';
 
 export default function SignIn() {
   const context = useContext(SiteContext);
-  const [user, setUser] = useState({username: null, password: null, role: 'rider'});
+
+  // const [user, setUser] = useState({username: null, password: null, role: 'rider'});
   // const [role, setRole] = useState('rider');
   const [isEnabled, setIsEnabled] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -16,33 +17,33 @@ export default function SignIn() {
 
   let handleUserName = (e, name) => {
     console.log("this is the event", name);
-    setUser({ ...user, username: e });
-    console.log(user);
+    context.setUser({ ...context.user, username: e });
+    console.log(context.user);
   }
 
   let handlePassword = (e, name) => {
     console.log("this is the event", name);
-    setUser({ ...user, password: e });
-    console.log(user);
+    context.setUser({ ...context.user, password: e });
+    console.log(context.user);
   }
 
   let handleRole = (e, name) => {
     console.log("this is the event", name);
-    setUser({ ...user, role: e });
-    console.log(user);
+    context.setUser({ ...context.user, role: e });
+    console.log(context.user);
   }
 
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     // const api = 'https://brsmith-auth-api.herokuapp.com/signup';
     const api = 'http://localhost:3333/signup';
-    axios({
+    await axios({
       method: 'post',
       url: api,
       mode: 'cors',
       cache: 'no-cache',
       headers: { 'Content-Type': 'application/json' },
-      data: user,
+      data: context.user,
     }).then(response => {
       context.setToken(response.data.token);
       if (response.status === 201) {
@@ -50,6 +51,12 @@ export default function SignIn() {
         context.setUser(response.data.user);
         setSuccess(true);
         createTwoButtonAlert();
+      }
+      if (response.status === 500) {
+        Alert.alert(
+          "Error",
+          "Please choose another username.", [{text: "OK"}]
+        )
       }
     })
   }
@@ -59,17 +66,17 @@ export default function SignIn() {
       "Success!",
       "Your user has been created. Please sign in to access the site",
       [
-        {
-          text: "Cancel",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel"
-        },
+        // {
+        //   text: "Cancel",
+        //   onPress: () => console.log("Cancel Pressed"),
+        //   style: "cancel"
+        // },
         { text: "OK", onPress: () => console.log('OK') }
       ]
     );
 
   const toggleSwitch = () => {
-    if (user.role === 'driver') {
+    if (context.user.role === 'driver') {
       // setRole('rider');
       handleRole('rider', 'role');
       setIsEnabled(false);
@@ -88,7 +95,7 @@ export default function SignIn() {
           value={isEnabled}
           onValueChange={toggleSwitch}
         />
-      <Text>Driver</Text>
+        <Text>Driver</Text>
       </View>
       <TextInput
         style={styles.input}
