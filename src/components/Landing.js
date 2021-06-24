@@ -16,7 +16,7 @@ export default function Landing() {
   const context = useContext(SiteContext);
   
   const signOut = () => {
-    context.setUser(null);
+    context.setUser({username: null, password: null, role: 'rider'});
     context.setRole(null);
     context.setTrip(null);
     context.setOrigin(null);
