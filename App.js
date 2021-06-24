@@ -23,9 +23,9 @@ const destination = {latitude: 37.771707, longitude: -122.4053769};
 export default function App() {
 
   return (
-    <NativeRouter>
+      <NativeRouter>
       <SafeAreaView style={styles.container}>
-        <Map origin={origin} destination={destination}/>
+        {/* <Map origin={origin} destination={destination}/> */}
         <Switch>
           <Route exact path='/' component={Landing} />
           <Route path='/about' component={About} />
@@ -40,7 +40,7 @@ export default function App() {
         </Switch>
         <StatusBar style="auto" />
       </SafeAreaView>
-    </NativeRouter>
+      </NativeRouter>
   );
 }
 

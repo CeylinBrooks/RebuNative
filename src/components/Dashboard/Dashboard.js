@@ -73,7 +73,6 @@ export default function Dashboard() {
             renderItem={renderItem}
             keyExtractor={item => item.id}
             ></Text>
-
          </ScrollView>
       </View>
   

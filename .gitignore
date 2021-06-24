@@ -116,3 +116,5 @@ web-build/
 
 # macOS
 .DS_Store
+
+package-lock.json
