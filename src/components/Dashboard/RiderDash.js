@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { ScrollView, Text, StyleSheet, View, TextInput, Button, FlatList, Image, TouchableOpacity } from 'react-native';
-import { Link } from 'react-router-native';
+import { Link, Redirect } from 'react-router-native';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import { SiteContext } from '../Auth/context';
 import axios from 'axios';
@@ -33,11 +33,11 @@ export default function RiderDash(props) {
     <Item title={item.title} />
   );
 
-  const addTrip = async () => {
+  const addTrip = () => {
     console.log("user id", context.user._id);
 
     const api = 'http://localhost:3333/api/v1/trips';
-    await axios({
+    axios({
       method: 'post',
       url: api,
       data: {
@@ -54,11 +54,10 @@ export default function RiderDash(props) {
     }).then(response => {
       console.log('this is the response', response.data);
       context.setTrip(response.data._id);
-      console.log('CONTEXT!!!', context);
-      props.setQueue(response.data._id);
+
       // context.setIsAuthenticated(true);
       // context.setToken(response.data.token);
-    })
+    }).catch(e => {console.error(e)});
   }
 
   return (
@@ -96,14 +95,8 @@ export default function RiderDash(props) {
         onPress={(data, details = null) => context.setDestination(data.description)}
         onFail={(error) => console.error(error)}
       />
-      <TouchableOpacity>
-        <Link to={"/trip"} style={styles.button} onPress={addTrip}
-        // TODO: this button should update the database with new trip object
-        >
-          <Text>
-            Schedule pickup
-          </Text>
-        </Link>
+      <TouchableOpacity >
+        <Button title="Schedule Pickup" style={styles.button} onPress={addTrip} />
       </TouchableOpacity>
       <ScrollView>
         <Text style={styles.text}>Your previous trips:</Text>
@@ -114,6 +107,12 @@ export default function RiderDash(props) {
         ></Text>
 
       </ScrollView>
+      {context.trip !== null ? <Redirect
+          to={{
+            pathname: "/trip",
+            // state: { from: props.location }
+          }}
+        /> : null }
     </View>
 
   )

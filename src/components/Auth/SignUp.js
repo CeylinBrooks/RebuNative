@@ -48,7 +48,6 @@ export default function SignIn() {
     }).then(response => {
       context.setToken(response.data.token);
       if (response.status === 201) {
-        console.log('response.data.user!!!!!!!', response.data.user);
         context.setUser(response.data.user);
         setSuccess(true);
         createTwoButtonAlert();
@@ -116,7 +115,8 @@ export default function SignIn() {
 
       <Button
         style={styles.button}
-        onPress={handleSubmit} title='Sign Up' />
+        onPress={handleSubmit}
+        title='Sign Up' />
       <Text style={styles.text}>Already Signed up?</Text>
       <Link style={styles.link} to={"/signin"}>
         <Text style={styles.text}>Go To Sign In</Text>

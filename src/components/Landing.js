@@ -23,7 +23,7 @@ export default function Landing() {
     context.setDestination(null);
     context.setIsAuthenticated(false);
     context.setToken(null);
-  
+    console.log('logged out', context);
   }
 
   return (
