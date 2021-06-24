@@ -1,25 +1,71 @@
-import React from 'react';
-import {Text, StyleSheet, View, TextInput, Button, FlatList, Image, TouchableOpacity} from 'react-native';
-import { Link } from 'react-router-native';
+import React, { useContext } from 'react';
+import { SiteContext } from '../Auth/context.js'
+import { Alert, Text, StyleSheet, View, TextInput, Button, FlatList, Image, TouchableOpacity } from 'react-native';
+import { Link, Redirect } from 'react-router-native';
+import axios from 'axios';
 
 export default function DriverDash() {
+  const context = useContext(SiteContext);
 
-  const queue = [];
+  // TODO: send get request to trips and find the oldest trip that has not been accepted. 
+  const handleGetTrip = async () => {
+    // const api = 'https://brsmith-auth-api.herokuapp.com/api/v1/trips';
+    const api = 'http://localhost:3333/api/v1/trips';
+    await axios ({
+      method: 'get',
+      url: api,
+      mode: 'cors',
+      cache: 'no-cache',
+      headers: {},
+    }).then(response => {
+      console.log(response.data);
+      if (response.status !== 500) {
+        let openTrips = response.data.filter((trip) => trip.accept_time === "null");
+        console.log('___OpenTrips[0]____', openTrips[0]);
+        setTrip(openTrips[0]);
+      }
+      if (response.status === 500) {
+        Alert.alert(
+          "Error",
+          "Please choose another username.", [{text: "OK"}]
+        )
+      }
+    })
+  }
 
-  const DATA = [
-    {
-      id: 'bd7acbea-c1b1-46c2-aed5-3ad53abb28ba',
-      title: 'First Item',
-    },
-    {
-      id: '3ac68afc-c605-48d3-a4f8-fbd91aa97f63',
-      title: 'Second Item',
-    },
-    {
-      id: '58694a0f-3da1-471f-bd96-145571e29d72',
-      title: 'Third Item',
-    },
-  ];
+  const setTrip = async (trip) => {
+    // const api = 'https://brsmith-auth-api.herokuapp.com/api/v1/trips';
+    const api = 'http://localhost:3333/api/v1/trips';
+    await axios ({
+      method: 'put',
+      url: `${api}/${trip._id}`,
+      mode: 'cors',
+      cache: 'no-cache',
+      data: {
+        accept_time: new Date(),
+        driver_id: context.user._id,
+      },
+      headers: { },
+    }).then(response => {
+      console.log(response.data);
+      if (response.status !== 500) {
+        context.setTrip(response.data);
+
+      }
+      if (response.status === 500) {
+        Alert.alert(
+          "Error",
+          "Please choose another username.", [{text: "OK"}]
+        )
+      }
+    })
+  }
+
+  // Once trip has been found, add trip id to context and send update to server that trip has been accepted
+
+  // Then add button that driver clicks to update server that driver has arrived.
+
+  //  Then add button that on press updates server that trip is completed and resets context
 
   const Item = ({ title }) => (
       <Text>{title}</Text>
@@ -45,11 +91,15 @@ export default function DriverDash() {
          </TouchableOpacity>
         </View>
         <Text style = {styles.text}>Your past trips:</Text>
-          <FlatList
-            data={DATA}
-            renderItem={renderItem}
-            keyExtractor={item => item.id}
-            />
+        {context.trip ?
+        
+        <Redirect
+          to={{
+            pathname: "/trip",
+
+          }}
+        />
+        : null}
       </View>
   
     )
