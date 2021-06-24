@@ -34,9 +34,9 @@ export default function SignIn() {
       },
       headers: {},
     }).then(response => {
-      context.setIsAuthenticated(true);
       context.setUser(response.data.user);
       context.setToken(response.data.token);
+      context.setIsAuthenticated(true);
     }).catch((e) => console.error(e));
   }
 
