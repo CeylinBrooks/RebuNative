@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Alert, Modal, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import { SiteContext } from '../Auth/context';
+import { Redirect } from 'react-router-native';
 // import * as Haptics from 'expo-haptics';
 
 export default function MyModal(props) {
+  const context = useContext(SiteContext);
   const [modalVisible, setModalVisible] = useState(true);
+  const [redirect, setRedirect] = useState(false);
   return (
     <View 
     style={styles.centeredView}
@@ -21,11 +25,15 @@ export default function MyModal(props) {
               style={{ ...styles.openButton, backgroundColor: '#2196F3' }}
               onPress={() => {
                 setModalVisible(!modalVisible);
+                if(props.reset === true){
+                  context.setTrip(null);
+                }
               }}>
               <Text style={styles.textStyle}>Close</Text>
             </TouchableHighlight>
           </View>
         </View>
+        {props.redirect === true && redirect ? <Redirect to={{pathname: "/"}} /> : null }
       </Modal>
 
     </View>

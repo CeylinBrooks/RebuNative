@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { View, Text, TextInput, Button } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity } from 'react-native';
 import { Redirect } from 'react-router-native';
 import { SiteContext } from './context.js';
 import axios from 'axios';
@@ -48,7 +48,7 @@ export default function SignIn() {
         onChangeText={(e) => handleUserName(e, 'username')}
         placeholder='username'
         autoCapitalize="none"
-
+        style={styles.input}
       />
 
       <TextInput
@@ -56,9 +56,16 @@ export default function SignIn() {
         onChangeText={(e) => handlePassword(e, 'password')}
         placeholder='password'
         autoCapitalize="none"
+        style={styles.input}
       />
 
-      <Button onPress={handleSubmit} title='Sign In' />
+      <TouchableOpacity 
+      onPress={handleSubmit} 
+      title='Sign In'
+      style={styles.button}
+      >
+        <Text style={{color: "#00a88a", fontSize: 16}}>Sign in</Text>
+      </TouchableOpacity>
       {context.isAuthenticated ?
         <Redirect
           to={{
@@ -71,3 +78,26 @@ export default function SignIn() {
 
   )
 }
+
+const styles = StyleSheet.create({
+  input: {
+    color: "black",
+    backgroundColor: "white",
+    width: 250,
+    borderRadius: 5,
+    fontSize: 16,
+    paddingLeft: 5,
+    height: 40,
+    margin: "auto",
+    marginBottom: 20,
+    borderColor: '#7a42f4',
+  },
+  button: {
+    padding: 10,
+    backgroundColor: "white",
+    borderRadius: 6,
+    marginBottom: 80,
+    alignItems: "center",
+    width: 250,
+  },
+})
