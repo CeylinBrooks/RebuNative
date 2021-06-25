@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Alert, Switch, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Alert, Switch, TouchableOpacity } from 'react-native';
 import { Link, Redirect } from 'react-router-native';
 import axios from 'axios';
 import { SiteContext } from './context.js';
@@ -46,7 +46,7 @@ export default function SignIn() {
     }).then(response => {
       context.setToken(response.data.token);
 
-      if (response.status === 200) {
+      if (response.status === 201) {
         console.log('response.data.user!!!!!!!', response.data.user);
         context.setUser(response.data.user);
         setSuccess(true);

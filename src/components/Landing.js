@@ -25,6 +25,7 @@ export default function Landing() {
     context.setDestination(null);
     context.setIsAuthenticated(false);
     context.setToken(null);
+    context.setComplete(false);
     console.log('logged out', context);
   }
 
