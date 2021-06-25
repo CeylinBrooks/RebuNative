@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { SiteContext } from '../Auth/context.js'
 import { Alert, Text, StyleSheet, View, TextInput, Button, FlatList, Image, TouchableOpacity } from 'react-native';
 import { Link, Redirect } from 'react-router-native';
@@ -6,6 +6,7 @@ import axios from 'axios';
 
 export default function DriverDash() {
   const context = useContext(SiteContext);
+
 
   // TODO: send get request to trips and find the oldest trip that has not been accepted. 
   const handleGetTrip = async () => {
@@ -61,12 +62,6 @@ export default function DriverDash() {
     })
   }
 
-  // Once trip has been found, add trip id to context and send update to server that trip has been accepted
-
-  // Then add button that driver clicks to update server that driver has arrived.
-
-  //  Then add button that on press updates server that trip is completed and resets context
-
   const Item = ({ title }) => (
       <Text>{title}</Text>
   );
@@ -90,13 +85,10 @@ export default function DriverDash() {
             </Text>
          </TouchableOpacity>
         </View>
-        <Text style = {styles.text}>Your past trips:</Text>
         {context.trip ?
-        
         <Redirect
           to={{
             pathname: "/trip",
-
           }}
         />
         : null}
