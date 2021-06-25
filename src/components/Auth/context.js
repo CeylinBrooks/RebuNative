@@ -9,6 +9,7 @@ function SiteProvider(props) {
   const [loading, setLoading] = useState(false);
   const [token, setToken] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [complete, setComplete] = useState(false);
 
   // hardcoding test
   const [origin, setOrigin] = useState('test origin');
@@ -31,6 +32,8 @@ function SiteProvider(props) {
     setIsAuthenticated,
     token,
     setToken,
+    complete,
+    setComplete,
   }
   
   return (

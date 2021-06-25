@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Alert, Modal, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import { Modal, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import { SiteContext } from '../Auth/context';
 import { Redirect } from 'react-router-native';
 // import * as Haptics from 'expo-haptics';
@@ -26,7 +26,7 @@ export default function MyModal(props) {
               onPress={() => {
                 setModalVisible(!modalVisible);
                 if (props.reset === true) {
-                  setRedirect(true);
+                  context.setComplete(true);
                 }
               }}>
               <Text style={styles.textStyle}>Close</Text>

@@ -59,15 +59,17 @@ export default function RiderTrip() {
             message="You trip has ended. Please exit the vehicle."
           />
         ) : null}
-        {context.trip.dropoff_time !== "null" ? (
+        {context.complete === true ? (
           <Link to={"/"}>
             <Text> {">"} go Home</Text>
           </Link>
+          // <Redirect to={{
+          //   pathname: '/'
+          // }} />
         ) : null}
       </View>
       <Text style={styles.logo}>Current Trip</Text>
       <Map origin={origin} destination={destination} />
-
     </View>
   );
 }
