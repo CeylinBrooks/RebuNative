@@ -3,6 +3,7 @@ import { SiteContext } from '../Auth/context.js'
 import { Alert, Text, StyleSheet, View, TextInput, Button, FlatList, Image, TouchableOpacity } from 'react-native';
 import { Link, Redirect } from 'react-router-native';
 import axios from 'axios';
+import exit from '../../../assets/exit.png';
 
 export default function DriverDash() {
   const context = useContext(SiteContext);
@@ -10,8 +11,8 @@ export default function DriverDash() {
 
   // TODO: send get request to trips and find the oldest trip that has not been accepted. 
   const handleGetTrip = async () => {
-    // const api = 'https://brsmith-auth-api.herokuapp.com/api/v1/trips';
-    const api = 'http://localhost:3333/api/v1/trips';
+    const api = 'https://brsmith-auth-api.herokuapp.com/api/v1/trips';
+    // const api = 'http://localhost:3333/api/v1/trips';
     await axios ({
       method: 'get',
       url: api,
@@ -35,8 +36,8 @@ export default function DriverDash() {
   }
 
   const setTrip = async (trip) => {
-    // const api = 'https://brsmith-auth-api.herokuapp.com/api/v1/trips';
-    const api = 'http://localhost:3333/api/v1/trips';
+    const api = 'https://brsmith-auth-api.herokuapp.com/api/v1/trips';
+    // const api = 'http://localhost:3333/api/v1/trips';
     await axios ({
       method: 'put',
       url: `${api}/${trip._id}`,
@@ -75,7 +76,7 @@ export default function DriverDash() {
         <Link to={"/"}>
           <Image 
           style={styles.exitImg}
-          source={require('./exit.png')} />
+          source={exit} />
         </Link>
         <View style={styles.inputContainer}>
         <Text style={styles.formLabel}>Driver Dashboard</Text>

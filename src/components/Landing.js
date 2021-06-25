@@ -13,6 +13,7 @@ if (!global.atob) {
 }
 
 export default function Landing() {
+
   const context = useContext(SiteContext);
 
   const signOut = () => {
@@ -44,12 +45,12 @@ export default function Landing() {
             <Link style={styles.link} to={"/dashboard"}>
               <Text style={styles.text}>Dashboard</Text>
             </Link>
-            <Link style={styles.link} to={"/dashboard/driver"}>
+            {/* <Link style={styles.link} to={"/dashboard/driver"}>
               <Text>go to Driver Dashboard</Text>
-            </Link>
-            <Link style={styles.link} to={"/trip"}>
+            </Link> */}
+            {/* <Link style={styles.link} to={"/trip"}>
               <Text>go to Trip</Text>
-            </Link>
+            </Link> */}
             <Link style={styles.link} onPress={signOut}>
               <Text style={styles.text}>Sign Out</Text>
             </Link>
@@ -68,7 +69,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   logo: {
-    fontFamily: "Helvetica",
+    fontFamily: "Arial",
     fontSize: 40,
     color: "#fff",
     marginBottom: 50,
