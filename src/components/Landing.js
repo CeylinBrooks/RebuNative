@@ -14,9 +14,9 @@ if (!global.atob) {
 
 export default function Landing() {
   const context = useContext(SiteContext);
-  
+
   const signOut = () => {
-    context.setUser({username: null, password: null, role: 'rider'});
+    context.setUser({ username: null, password: null, role: 'rider' });
     context.setRole(null);
     context.setTrip(null);
     context.setOrigin(null);
@@ -30,22 +30,19 @@ export default function Landing() {
     <AuthContext>
       <View>
         <Text style={styles.logo}>rebu</Text>
-        {/* {!context.isAuthenticated ? ( */}
+        {!context.isAuthenticated ? (
           <View>
-            <Link style={styles.link} to={"/about"}>
-              <Text>go to About</Text>
+            <Link style={styles.link} to={"/signup"}>
+              <Text style={styles.text}>Sign up</Text>
             </Link>
             <Link style={styles.link} to={"/signin"}>
-              <Text>go to Sign In</Text>
-            </Link>
-            <Link style={styles.link} to={"/signup"}>
-              <Text>go to Sign up</Text>
+              <Text style={styles.text}>Sign In</Text>
             </Link>
           </View>
-        {/* ) : ( */}
+        ) : (
           <View>
             <Link style={styles.link} to={"/dashboard"}>
-              <Text>go to Dashboard</Text>
+              <Text style={styles.text}>Dashboard</Text>
             </Link>
             <Link style={styles.link} to={"/dashboard/driver"}>
               <Text>go to Driver Dashboard</Text>
@@ -54,10 +51,10 @@ export default function Landing() {
               <Text>go to Trip</Text>
             </Link>
             <Link style={styles.link} onPress={signOut}>
-              <Text>Sign Out</Text>
+              <Text style={styles.text}>Sign Out</Text>
             </Link>
           </View>
-        {/* )} */}
+        )}
       </View>
     </AuthContext>
   );
@@ -74,11 +71,17 @@ const styles = StyleSheet.create({
     fontFamily: "Helvetica",
     fontSize: 40,
     color: "#fff",
+    marginBottom: 50,
   },
   link: {
     padding: 10,
-    borderWidth: 2,
-    borderColor: "black",
+    backgroundColor: "white",
+    borderRadius: 6,
     marginBottom: 10,
+    alignItems: "center",
   },
+  text: {
+    color: "#00a88a",
+  }
+
 });

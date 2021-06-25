@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Alert, Switch } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, Alert, Switch, TouchableOpacity } from 'react-native';
 import { Link, Redirect } from 'react-router-native';
 import axios from 'axios';
 import { SiteContext } from './context.js';
@@ -57,7 +57,7 @@ export default function SignIn() {
       if (response.status === 500) {
         Alert.alert(
           "Error",
-          "Please choose another username.", [{text: "OK"}]
+          "Please choose another username.", [{ text: "OK" }]
         )
       }
     })
@@ -68,11 +68,6 @@ export default function SignIn() {
       "Success!",
       "Your user has been created. Please sign in to access the site",
       [
-        // {
-        //   text: "Cancel",
-        //   onPress: () => console.log("Cancel Pressed"),
-        //   style: "cancel"
-        // },
         { text: "OK", onPress: () => console.log('OK') }
       ]
     );
@@ -91,13 +86,18 @@ export default function SignIn() {
 
   return (
     <View style={styles.container}>
+      {/* <Text>Sign up</Text> */}
       <View style={styles.roleSwitch}>
-        <Text>Rider</Text>
+        <Text style={styles.switchText} >Rider</Text>
         <Switch
+          style={styles.switch}
+          trackColor={{ false: "#fff", true: "#3e3e3e" }}
+          thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
+          ios_backgroundColor="#3e3e3e"
           value={isEnabled}
           onValueChange={toggleSwitch}
         />
-        <Text>Driver</Text>
+        <Text style={styles.switchText}>Driver</Text>
       </View>
       <TextInput
         style={styles.input}
@@ -115,13 +115,15 @@ export default function SignIn() {
         autoCapitalize="none"
       />
 
-      <Button
+      <TouchableOpacity
         style={styles.button}
         onPress={handleSubmit}
-        title='Sign Up' />
+        title='Sign Up'>
+        <Text style={{color: "#00a88a", fontSize: 16}}>Sign up</Text>
+      </TouchableOpacity>
       <Text style={styles.text}>Already Signed up?</Text>
       <Link style={styles.link} to={"/signin"}>
-        <Text style={styles.text}>Go To Sign In</Text>
+        <Text style={styles.text, {textDecorationLine: "underline", textAlign: "center", color: "white"}}>Go To Sign In</Text>
       </Link>
       {success ?
         <Redirect
@@ -131,7 +133,6 @@ export default function SignIn() {
           }}
         />
         : null}
-
     </View>
 
   )
@@ -144,30 +145,17 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     flexDirection: "row"
   },
-  picker: {
-    height: 50,
-    overflow: 'hidden',
-    fontFamily: "Helvetica",
-    fontSize: 30,
-    color: "white",
-    justifyContent: 'center',
-    marginBottom: 10,
-  },
   input: {
     color: "black",
     backgroundColor: "white",
     width: 250,
     borderRadius: 5,
-    fontSize: 20,
+    fontSize: 16,
     paddingLeft: 5,
     height: 40,
-    margin: 10,
-    borderColor: '#7a42f4',
-  },
-  button: {
+    margin: "auto",
     marginBottom: 20,
-    // borderWidth: 2,
-    // borderColor: "black",
+    borderColor: '#7a42f4',
   },
   link: {
     padding: 10,
@@ -180,5 +168,25 @@ const styles = StyleSheet.create({
   },
   text: {
     textAlign: 'center',
+  },
+  button: {
+    padding: 10,
+    backgroundColor: "white",
+    borderRadius: 6,
+    marginBottom: 80,
+    alignItems: "center",
+    width: 250,
+  },
+  switch: {
+    marginBottom: 40,
+  },
+  roleSwitch : {
+    flexDirection: "row",
+    justifyContent: "space-around",
+  },
+  switchText: {
+    color: "white",
+    fontSize: 18,
+    fontWeight: "500",
   }
 });

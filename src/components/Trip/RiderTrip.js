@@ -1,6 +1,6 @@
-import React, { useContext, useState } from 'react';
-import { View, StyleSheet, Text, Button } from 'react-native';
-import { Link } from 'react-router-native';
+import React, { useContext, useEffect, useState } from 'react';
+import { View, StyleSheet, Text } from 'react-native';
+import { Link, Redirect } from 'react-router-native';
 import { SiteContext } from '../Auth/context';
 import axios from 'axios';
 import Map from './Map';
@@ -10,14 +10,13 @@ export default function RiderTrip() {
 
   const context = useContext(SiteContext);
 
-
+  console.log(context);
   // below are props for Map component: 
-  const origin = context.origin; // these will come from database trip item
-  const destination = context.destination;
-  console.log('trip _id:', context.trip);
+  const origin = context.trip.start_loc ? context.trip.start_loc : null;
+  const destination = context.trip.end_loc ? context.trip.end_loc : null;
 
   // query the db for updates to the trip data
-  let updater = async () => {
+  let update = async () => {
     const api = `http://localhost:3333/api/v1/trips/${context.trip._id}`;
     await axios({
       method: 'get',
@@ -29,6 +28,16 @@ export default function RiderTrip() {
     }).catch(e => console.error(e))
   }
 
+  // While on trip page, query DB every 5 sec for trip updates
+  useEffect(() => {
+    const updater = setInterval(() => {
+      update();
+    }, 5000);
+
+    // clear interval when component unmounts (!)
+    return () => clearInterval(updater);
+  });
+
   return (
     <View style={styles.container}>
       {context.trip.accept_time !== 'null' ?
@@ -39,20 +48,16 @@ export default function RiderTrip() {
         <Modal
           message="Driver has arrived" />
         : null}
-      {context.trip.dropoff_time!== 'null' ?
-          <Modal
-            message="You trip has ended. Please exit the vehicle." />
+      {context.trip.dropoff_time !== 'null' ?
+        <Modal reset={true}
+          message="You trip has ended. Please exit the vehicle." />
         : null}
-      <Link to={"/"}>
-        <Text> {'>'} go Home</Text>
-      </Link>
+      {context.trip.dropoff_time !== 'null' ?
+        <Link to={"/"} >
+          <Text> {'>'} go Home</Text>
+        </Link>
+        : null}
       <Text style={styles.logo}>Current Trip</Text>
-      <Button title="get trip updates" onPress={updater} />
-      {/* Display pickup button only for Drivers */}
-      {context.role === 'driver' ?
-        <Button title="Pick Up Passenger" onPress={null} />
-        :
-        null}
       <Map origin={origin} destination={destination} />
     </View>
   )
