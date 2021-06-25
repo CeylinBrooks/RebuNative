@@ -1,7 +1,7 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { encode, decode } from "base-64";
 import { View, Text, StyleSheet, Alert } from "react-native";
-import { Link } from "react-router-native";
+import { Link, Redirect } from "react-router-native";
 import AuthContext from "./Auth/context.js";
 import { SiteContext } from "./Auth/context.js";
 
@@ -15,6 +15,7 @@ if (!global.atob) {
 export default function Landing() {
 
   const context = useContext(SiteContext);
+  const [redirect, setRedirect] = useState(false);
 
   const signOut = () => {
     context.setUser({ username: null, password: null, role: 'rider' });
@@ -25,6 +26,14 @@ export default function Landing() {
     context.setIsAuthenticated(false);
     context.setToken(null);
     console.log('logged out', context);
+  }
+
+  const newTrip = () => {
+    context.setTrip(null);
+    context.setOrigin(null);
+    context.setDestination(null);
+    console.log('logged out', context);
+    setRedirect(true);
   }
 
   return (
@@ -45,15 +54,21 @@ export default function Landing() {
             <Link style={styles.link} to={"/dashboard"}>
               <Text style={styles.text}>Dashboard</Text>
             </Link>
-            {/* <Link style={styles.link} to={"/dashboard/driver"}>
-              <Text>go to Driver Dashboard</Text>
-            </Link> */}
-            {/* <Link style={styles.link} to={"/trip"}>
-              <Text>go to Trip</Text>
-            </Link> */}
+
+            <Link style={styles.link} onPress={newTrip}>
+              <Text style={styles.text}>New trip</Text>
+            </Link>
+
             <Link style={styles.link} onPress={signOut}>
               <Text style={styles.text}>Sign Out</Text>
             </Link>
+            {redirect ?
+              <Redirect
+                to={{
+                  pathname: "/dashboard",
+                }}
+              />
+              : null}
           </View>
         )}
       </View>
@@ -76,6 +91,7 @@ const styles = StyleSheet.create({
   },
   link: {
     padding: 10,
+    width: 200,
     backgroundColor: "white",
     borderRadius: 6,
     marginBottom: 10,

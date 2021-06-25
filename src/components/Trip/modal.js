@@ -9,14 +9,14 @@ export default function MyModal(props) {
   const [modalVisible, setModalVisible] = useState(true);
   const [redirect, setRedirect] = useState(false);
   return (
-    <View 
-    style={styles.centeredView}
+    <View
+      style={styles.centeredView}
     >
       <Modal
         animationType="slide"
         transparent={true}
         visible={modalVisible}
-        >
+      >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <Text style={styles.modalText}>{props.message}</Text>
@@ -25,15 +25,21 @@ export default function MyModal(props) {
               style={{ ...styles.openButton, backgroundColor: '#00a88a' }}
               onPress={() => {
                 setModalVisible(!modalVisible);
-                if(props.reset === true){
-                  context.setTrip(null);
+                if (props.reset === true) {
+                  setRedirect(true);
                 }
               }}>
               <Text style={styles.textStyle}>Close</Text>
             </TouchableHighlight>
           </View>
         </View>
-        {props.redirect === true && redirect ? <Redirect to={{pathname: "/"}} /> : null }
+        {redirect ?
+          <Redirect
+            to={{
+              pathname: "/",
+            }}
+          />
+          : null}
       </Modal>
 
     </View>
