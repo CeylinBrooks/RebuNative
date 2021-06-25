@@ -7,7 +7,6 @@ import Landing from './Landing';
 import About from './About/About';
 import SignIn from './Auth/SignIn';
 import SignUp from './Auth/SignUp';
-import RiderDash from './Dashboard/RiderDash';
 import Dashboard from './Dashboard/Dashboard';
 import TripHistory from './Trip/TripHistory';
 import Trip from './Trip/Trip';

@@ -10,11 +10,8 @@ export default function RiderTrip() {
 
   const context = useContext(SiteContext);
 
-  console.log(context);
-  // below are props for Map component: 
-  const origin = context.trip.start_loc ? context.trip.start_loc : null;
-  const destination = context.trip.end_loc ? context.trip.end_loc : null;
-
+  console.log('line 13',context);
+  
   // query the db for updates to the trip data
   let update = async () => {
     const api = `http://localhost:3333/api/v1/trips/${context.trip._id}`;
@@ -27,16 +24,21 @@ export default function RiderTrip() {
       console.log('this is the response', response.data);
     }).catch(e => console.error(e))
   }
-
+  
   // While on trip page, query DB every 5 sec for trip updates
   useEffect(() => {
     const updater = setInterval(() => {
       update();
     }, 5000);
-
+    
     // clear interval when component unmounts (!)
     return () => clearInterval(updater);
   });
+  
+  // below are props for Map component: 
+  console.log('line 39' , context.trip);
+  const origin = context.trip.start_loc ? context.trip.start_loc : {};
+  const destination = context.trip.end_loc ? context.trip.end_loc : {};
 
   return (
     <View style={styles.container}>
