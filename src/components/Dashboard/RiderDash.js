@@ -1,12 +1,9 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import {
   ScrollView,
   Text,
   StyleSheet,
   View,
-  TextInput,
-  Button,
-  FlatList,
   Image,
   TouchableOpacity,
 } from "react-native";
@@ -62,9 +59,6 @@ export default function RiderDash(props) {
       .then((response) => {
         console.log("this is the response", response.data);
         context.setTrip(response.data);
-
-        // context.setIsAuthenticated(true);
-        // context.setToken(response.data.token);
       })
       .catch((e) => {
         console.error(e);
@@ -85,7 +79,6 @@ export default function RiderDash(props) {
         onPress={(data, details = null) => console.log(data.description)}
         onPress={(data, details = null) => context.setOrigin(data.description)}
         onFail={(error) => console.error(error)}
-        // currentLocation={true}
       />
       <GooglePlacesAutocomplete
         style={styles.input}
@@ -100,8 +93,9 @@ export default function RiderDash(props) {
         }
         onFail={(error) => console.error(error)}
       />
-
-      <Button title="Schedule Pickup" style={styles.button} onPress={addTrip} />
+      <TouchableOpacity style={styles.button} onPress={addTrip}>
+        <Text style={{ color: "#00a88a" }}>Schedule pickup</Text>
+      </TouchableOpacity>
 
       <ScrollView>
         <Text
@@ -122,7 +116,6 @@ export default function RiderDash(props) {
         <Redirect
           to={{
             pathname: "/trip",
-            // state: { from: props.location }
           }}
         />
       ) : null}
@@ -159,13 +152,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   button: {
-    borderWidth: 1,
     padding: 15,
     backgroundColor: "white",
-    alignSelf: "center",
-    color: "#00a88a",
-    borderColor: "#00a88a",
-    marginBottom: 20,
+    borderRadius: 6,
+    alignItems: "center",
+    width: 250,
   },
   exitImg: {
     width: 35,
