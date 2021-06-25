@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native';
 
 import { SiteContext } from '../Auth/context';
 import RiderTrip from './RiderTrip';
+import DriverTrip from './DriverTrip';
 
 export default function Trip() {
 
