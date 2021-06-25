@@ -13,6 +13,7 @@ if (!global.atob) {
 }
 
 export default function Landing() {
+
   const context = useContext(SiteContext);
   const [redirect, setRedirect] = useState(false);
 
@@ -53,9 +54,11 @@ export default function Landing() {
             <Link style={styles.link} to={"/dashboard"}>
               <Text style={styles.text}>Dashboard</Text>
             </Link>
+
             <Link style={styles.link} onPress={newTrip}>
               <Text style={styles.text}>New trip</Text>
             </Link>
+
             <Link style={styles.link} onPress={signOut}>
               <Text style={styles.text}>Sign Out</Text>
             </Link>
@@ -81,7 +84,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   logo: {
-    fontFamily: "Helvetica",
+    fontFamily: "Arial",
     fontSize: 40,
     color: "#fff",
     marginBottom: 50,

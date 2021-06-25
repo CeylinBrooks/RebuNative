@@ -22,7 +22,7 @@ export default function MyModal(props) {
             <Text style={styles.modalText}>{props.message}</Text>
 
             <TouchableHighlight
-              style={{ ...styles.openButton, backgroundColor: '#2196F3' }}
+              style={{ ...styles.openButton, backgroundColor: '#00a88a' }}
               onPress={() => {
                 setModalVisible(!modalVisible);
                 if (props.reset === true) {
@@ -70,7 +70,8 @@ const styles = StyleSheet.create({
   },
   openButton: {
     backgroundColor: '#F194FF',
-    borderRadius: 20,
+    borderRadius: 30,
+    width: 100,
     padding: 10,
     elevation: 2,
   },

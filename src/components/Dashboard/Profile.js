@@ -1,6 +1,8 @@
 import React from 'react';
 import {Text, StyleSheet, View, ScrollView, Button, TextInput, Image, TouchableOpacity} from 'react-native';
 import { Link } from 'react-router-native';
+import back from '../../../assets/back.png';
+
 
 export default function Profile() {
   return (
@@ -8,7 +10,7 @@ export default function Profile() {
       <Link to={"/dashboard"}>
           <Image 
           style={styles.exitImg}
-          source={require('./back.png')} />
+          source={back} />
         </Link>
         <View>
         <Text style={styles.formLabel}>Settings</Text>

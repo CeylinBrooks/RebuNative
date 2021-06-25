@@ -13,8 +13,8 @@ export default function DriverTrip() {
   const destination = context.trip.end_loc;
 
   let pickup = async () => {
-     // const api = 'https://brsmith-auth-api.herokuapp.com/api/v1/trips';
-     const api = 'http://localhost:3333/api/v1/trips';
+     const api = 'https://brsmith-auth-api.herokuapp.com/api/v1/trips';
+    //  const api = 'http://localhost:3333/api/v1/trips';
      await axios ({
        method: 'put',
        url: `${api}/${context.trip._id}`,
@@ -37,11 +37,12 @@ export default function DriverTrip() {
          )
        }
      })
+     .catch((e) => console.error(e))
   }
 
   let dropOff = async () => {
-    // const api = 'https://brsmith-auth-api.herokuapp.com/api/v1/trips';
-    const api = 'http://localhost:3333/api/v1/trips';
+    const api = 'https://brsmith-auth-api.herokuapp.com/api/v1/trips';
+    // const api = 'http://localhost:3333/api/v1/trips';
     await axios ({
       method: 'put',
       url: `${api}/${context.trip._id}`,
@@ -68,9 +69,9 @@ export default function DriverTrip() {
 
   return (
     <View style={styles.container}>
-      <Link to={"/"}>
+      {/* <Link to={"/"}>
         <Text> {'>'} go Home</Text>
-      </Link>
+      </Link> */}
       <Text style={styles.logo}>Current Trip</Text>
       {context.trip.pickup_time === "null" ? 
       <Button title="Pick Up Passenger" onPress={pickup} /> :
