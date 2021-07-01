@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "rebu-2",
-    "slug": "rebu-2",
+    "name": "rebu",
+    "slug": "rebu",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -17,7 +17,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.danengel.rebu"
     },
     "android": {
       "adaptiveIcon": {
@@ -27,6 +28,8 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": "This is a rideshare app that is built in React Native. The authors are Brendan Smith, Yulia Barysevich, Ceylin Brooks, and Dan Engel. We built this app in a week-long sprint for our Code Fellows final project.",
+    "githubUrl": "https://github.com/CeylinBrooks/RebuNative"
   }
 }

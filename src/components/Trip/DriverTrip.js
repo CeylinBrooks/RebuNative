@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-native';
 import { SiteContext } from '../Auth/context';
 import axios from 'axios';
 import Map from './Map';
+import Nav from '../navigation.js';
 
 export default function DriverTrip() {
   const context = useContext(SiteContext);
@@ -13,7 +14,6 @@ export default function DriverTrip() {
 
   let pickup = async () => {
     const api = 'https://brsmith-auth-api.herokuapp.com/api/v1/trips';
-    //  const api = 'http://localhost:3333/api/v1/trips';
     await axios({
       method: 'put',
       url: `${api}/${context.trip._id}`,
@@ -40,7 +40,6 @@ export default function DriverTrip() {
 
   let dropOff = async () => {
     const api = 'https://brsmith-auth-api.herokuapp.com/api/v1/trips';
-    // const api = 'http://localhost:3333/api/v1/trips';
     await axios({
       method: 'put',
       url: `${api}/${context.trip._id}`,
@@ -78,7 +77,9 @@ export default function DriverTrip() {
           pathname: '/'
         }} />
         : null}
-
+      <View style={styles.nav}>
+        <Nav/>
+      </View>
     </View>
   )
 }
@@ -90,19 +91,27 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     width: "100%",
+    marginTop: -50,
   },
   logo: {
     fontFamily: "Helvetica",
     fontSize: 40,
     color: "#fff",
-    marginBottom: 20,
+    marginBottom: 10,
   },
   button: {
     padding: 15,
     backgroundColor: "white",
-    borderRadius: 6,
+    borderRadius: 30,
     alignItems: "center",
-    width: 250,
+    width: 175,
     marginBottom: 20,
   },
+  nav: {
+    position: "absolute",
+    bottom: 0,
+    marginLeft: -70,
+    marginBottom: -35,
+    alignContent: "center"
+  }
 });

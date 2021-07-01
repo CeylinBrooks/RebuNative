@@ -4,15 +4,13 @@ import { Alert, Text, StyleSheet, View, Image, TouchableOpacity } from 'react-na
 import { Link, Redirect } from 'react-router-native';
 import axios from 'axios';
 import exit from '../../../assets/exit.png';
+import Nav from '../navigation.js';
 
 export default function DriverDash() {
   const context = useContext(SiteContext);
 
-
-  // TODO: send get request to trips and find the oldest trip that has not been accepted. 
   const handleGetTrip = async () => {
     const api = 'https://brsmith-auth-api.herokuapp.com/api/v1/trips';
-    // const api = 'http://localhost:3333/api/v1/trips';
     await axios({
       method: 'get',
       url: api,
@@ -37,7 +35,6 @@ export default function DriverDash() {
 
   const setTrip = async (trip) => {
     const api = 'https://brsmith-auth-api.herokuapp.com/api/v1/trips';
-    // const api = 'http://localhost:3333/api/v1/trips';
     await axios({
       method: 'put',
       url: `${api}/${trip._id}`,
@@ -72,11 +69,6 @@ export default function DriverDash() {
 
   return (
     <View >
-      <Link to={"/"}>
-        <Image
-          style={styles.exitImg}
-          source={exit} />
-      </Link>
       <View style={styles.inputContainer}>
         <Text style={styles.formLabel}>Driver Dashboard</Text>
         <TouchableOpacity style={styles.button} onPress={handleGetTrip}>
@@ -90,6 +82,9 @@ export default function DriverDash() {
           }}
         />
         : null}
+      <View style={styles.nav}>
+        <Nav/>
+      </View>
     </View>
 
   )
@@ -114,7 +109,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   },
   button: {
-    borderRadius: 6,
+    borderRadius: 30,
     padding: 15,
     backgroundColor: 'white',
     alignSelf: 'center',
@@ -132,6 +127,13 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 25,
     marginBottom: 15
+  },
+  nav: {
+    position: "absolute",
+    bottom: 0,
+    marginLeft: -60,
+    marginBottom: -240,
+    alignContent: "center"
   }
 
 });

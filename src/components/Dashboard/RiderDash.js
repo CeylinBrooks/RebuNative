@@ -11,27 +11,11 @@ import { Link, Redirect } from "react-router-native";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import { SiteContext } from "../Auth/context";
 import axios from "axios";
-import exit from '../../../assets/exit.png';
-import profile from '../../../assets/profile.png';
+import Nav from '../navigation.js';
+
 
 export default function RiderDash(props) {
-  // Set global context with form data TODO: user sessions
   const context = useContext(SiteContext);
-
-  const DATA = [
-    {
-      id: "bd7acbea-c1b1-46c2-aed5-3ad53abb28ba",
-      title: "First Item",
-    },
-    {
-      id: "3ac68afc-c605-48d3-a4f8-fbd91aa97f63",
-      title: "Second Item",
-    },
-    {
-      id: "58694a0f-3da1-471f-bd96-145571e29d72",
-      title: "Third Item",
-    },
-  ];
 
   const Item = ({ title }) => <Text>{title}</Text>;
 
@@ -40,7 +24,6 @@ export default function RiderDash(props) {
   const addTrip = async () => {
     console.log("user id", context.user._id);
     const api = "https://brsmith-auth-api.herokuapp.com/api/v1/trips";
-    // const api = 'http://localhost:3333/api/v1/trips';
     await axios({
       method: "post",
       url: api,
@@ -99,19 +82,10 @@ export default function RiderDash(props) {
 
       <ScrollView>
         <Text
-          data={DATA}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
         ></Text>
       </ScrollView>
-      <View style={styles.links}>
-        <Link to={"/"}>
-          <Image style={styles.exitImg} source={exit} />
-        </Link>
-        <Link to={"/profile"}>
-          <Image style={styles.exitImg} source={profile} />
-        </Link>
-      </View>
       {context.trip !== null ? (
         <Redirect
           to={{
@@ -119,6 +93,9 @@ export default function RiderDash(props) {
           }}
         />
       ) : null}
+      <View style={styles.nav}>
+        <Nav/>
+      </View>
     </View>
   );
 }
@@ -128,15 +105,11 @@ const styles = StyleSheet.create({
     marginTop: 100,
     flex: 1,
     backgroundColor: "#00a88a",
-    // alignItems: 'center',
     justifyContent: "center",
-    // width: "100%",
   },
   inputContainer: {
     flexDirection: "column",
-    // height: 300,
-    // padding: 20,
-    // marginTop: 10,
+    alignItems: "center"
   },
   formLabel: {
     fontSize: 30,
@@ -154,7 +127,7 @@ const styles = StyleSheet.create({
   button: {
     padding: 15,
     backgroundColor: "white",
-    borderRadius: 6,
+    borderRadius: 30,
     alignItems: "center",
     width: 250,
   },
@@ -170,6 +143,12 @@ const styles = StyleSheet.create({
   },
   links: {
     flexDirection: "row",
-    // padding: 20,
   },
+  nav: {
+    position: "absolute",
+    bottom: 0,
+    marginLeft: -70,
+    marginBottom: -35,
+    alignContent: "center"
+  }
 });

@@ -29,7 +29,6 @@ export default class Map extends Component {
     this.mapView = null;
   }
 
-  // Get current user location upon load
   componentDidUpdate() {
     (async () => {
       let { status } = await Location.requestForegroundPermissionsAsync();
@@ -41,13 +40,6 @@ export default class Map extends Component {
       this.setState({ location: location });
     });
   }
-
-  // let text = 'Waiting..';
-  // if (errorMsg) {
-  //   text = errorMsg;
-  // } else if (location) {
-  //   text = JSON.stringify(location);
-  // };
 
   render() {
     return (
@@ -86,7 +78,6 @@ export default class Map extends Component {
         <Text style={styles.text}>End: {this.state.destination} </Text>
         <Text style={styles.text}>Distance: {Math.round(this.state.distance)} km</Text>
         <Text style={styles.text}>Duration: {Math.round(this.state.duration)} min</Text>
-        {/* pricing is arbitray for demo */}
         <Text style={styles.text}>Estimated Cost: ${Math.round(this.state.duration * this.state.distance / 10)}</Text>
       </View>
     );
@@ -109,6 +100,7 @@ const styles = StyleSheet.create({
   text: {
     color: "white",
     fontSize: 16,
-    fontWeight: "bold"
+    fontWeight: "bold",
+    // marginLeft: 10,
   }
 });

@@ -1,20 +1,13 @@
-import React, { useState, Component } from "react";
+import React, { Component } from "react";
 import {
   Alert,
   ScrollView,
   StyleSheet,
   TouchableOpacity,
   Text,
-  Image,
-  View,
 } from "react-native";
-import { Link } from 'react-router-native';
-import {
-  CreditCardInput,
-  LiteCreditCardInput,
-} from "react-native-credit-card-input";
-import exit from '../../../assets/exit.png';
-import profile from '../../../assets/profile.png';
+import { CreditCardInput } from "react-native-credit-card-input";
+
 
 
 class RiderPayment extends Component {

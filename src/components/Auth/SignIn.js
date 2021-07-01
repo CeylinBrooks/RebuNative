@@ -24,9 +24,7 @@ export default function SignIn() {
 
 
     const api = 'https://brsmith-auth-api.herokuapp.com/signin';
-    // const api = 'http://localhost:3333/signin';
     await axios({
-
       method: 'post',
       url: api,
       auth: {
@@ -95,7 +93,7 @@ const styles = StyleSheet.create({
   button: {
     padding: 10,
     backgroundColor: "white",
-    borderRadius: 6,
+    borderRadius: 30,
     marginBottom: 80,
     alignItems: "center",
     width: 250,

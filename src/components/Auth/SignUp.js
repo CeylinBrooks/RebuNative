@@ -35,7 +35,6 @@ export default function SignIn() {
 
   const handleSubmit = async () => {
     const api = 'https://brsmith-auth-api.herokuapp.com/signup';
-    // const api = 'http://localhost:3333/signup';
     await axios({
       method: 'post',
       url: api,
@@ -72,11 +71,9 @@ export default function SignIn() {
 
   const toggleSwitch = () => {
     if (context.user.role === 'driver') {
-      // setRole('rider');
       handleRole('rider', 'role');
       setIsEnabled(false);
     } else {
-      // setRole('driver');
       handleRole('driver', 'role');
       setIsEnabled(true);
     };
@@ -84,7 +81,6 @@ export default function SignIn() {
 
   return (
     <View style={styles.container}>
-      {/* <Text>Sign up</Text> */}
       <View style={styles.roleSwitch}>
         <Text style={styles.switchText} >Rider</Text>
         <Switch
@@ -127,7 +123,6 @@ export default function SignIn() {
         <Redirect
           to={{
             pathname: "/signin",
-            // state: { from: props.location }
           }}
         />
         : null}
@@ -157,12 +152,11 @@ const styles = StyleSheet.create({
   },
   link: {
     padding: 10,
-    // borderWidth: 2,
-    // borderColor: "black",
+
     marginBottom: 10,
     borderRadius: 5,
     textAlign: 'center',
-    // marginTop: 100,
+
   },
   text: {
     textAlign: 'center',
@@ -170,7 +164,7 @@ const styles = StyleSheet.create({
   button: {
     padding: 10,
     backgroundColor: "white",
-    borderRadius: 6,
+    borderRadius: 30,
     marginBottom: 80,
     alignItems: "center",
     width: 250,
