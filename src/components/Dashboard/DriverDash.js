@@ -1,9 +1,8 @@
 import React, { useContext } from 'react';
 import { SiteContext } from '../Auth/context.js'
-import { Alert, Text, StyleSheet, View, Image, TouchableOpacity } from 'react-native';
-import { Link, Redirect } from 'react-router-native';
+import { Alert, Text, StyleSheet, View, TouchableOpacity } from 'react-native';
+import { Redirect } from 'react-router-native';
 import axios from 'axios';
-import exit from '../../../assets/exit.png';
 import Nav from '../navigation.js';
 
 export default function DriverDash() {
@@ -18,10 +17,8 @@ export default function DriverDash() {
       cache: 'no-cache',
       headers: {},
     }).then(response => {
-      console.log(response.data);
       if (response.status !== 500) {
         let openTrips = response.data.filter((trip) => trip.accept_time === "null");
-        console.log('___OpenTrips[0]____', openTrips[0]);
         setTrip(openTrips[0]);
       }
       if (response.status === 500) {
@@ -46,7 +43,6 @@ export default function DriverDash() {
       },
       headers: {},
     }).then(response => {
-      console.log(response.data);
       if (response.status !== 500) {
         context.setTrip(response.data);
       }

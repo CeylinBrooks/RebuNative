@@ -1,13 +1,11 @@
 import React, { useState, useContext } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity } from 'react-native';
 import { Redirect } from 'react-router-native';
-import { SiteContext } from './context.js';
 import axios from 'axios';
+import { SiteContext } from './context.js';
 
 export default function SignIn() {
-
   const context = useContext(SiteContext);
-
   const [userInput, setUserInput] = useState(null);
 
   let handleUserName = (e, name) => {
@@ -21,7 +19,6 @@ export default function SignIn() {
   let handleSubmit = async (e) => {
     let username = userInput.username;
     let password = userInput.password;
-
 
     const api = 'https://brsmith-auth-api.herokuapp.com/signin';
     await axios({

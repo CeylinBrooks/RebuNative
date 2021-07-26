@@ -10,8 +10,6 @@ function SiteProvider(props) {
   const [token, setToken] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [complete, setComplete] = useState(false);
-
-  // hardcoding test
   const [origin, setOrigin] = useState('test origin');
   const [destination, setDestination] = useState('test destination');
 

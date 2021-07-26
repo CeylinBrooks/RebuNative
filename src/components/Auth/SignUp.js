@@ -7,30 +7,19 @@ import { SiteContext } from './context.js';
 
 export default function SignIn() {
   const context = useContext(SiteContext);
-
-  // const [user, setUser] = useState({username: null, password: null, role: 'rider'});
-  // const [role, setRole] = useState('rider');
   const [isEnabled, setIsEnabled] = useState(false);
   const [success, setSuccess] = useState(false);
 
-
-
   let handleUserName = (e, name) => {
-    console.log("this is the event", name);
     context.setUser({ ...context.user, username: e });
-    console.log(context.user);
   }
 
   let handlePassword = (e, name) => {
-    console.log("this is the event", name);
     context.setUser({ ...context.user, password: e });
-    console.log(context.user);
   }
 
   let handleRole = (e, name) => {
-    console.log("this is the event", name);
     context.setUser({ ...context.user, role: e });
-    console.log(context.user);
   }
 
   const handleSubmit = async () => {
